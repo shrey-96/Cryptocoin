@@ -20,10 +20,10 @@ describe('Block', () => {
   it('has a timestmap, lastHash, hash, and data property', () => {
 
       // assert that timestamp attribute in the Block object has the value of local 'timestamp' declared above - confirming the constructor works 
-      expect(block.timestamp).toEqual(timestamp);    
-      expect(block.lastHash).toEqual(lastHash);    
-      expect(block.hash).toEqual(hash);    
-      expect(block.data).toEqual(data);    
+      this.expect(block.timestamp).toEqual(timestamp);    
+      this.expect(block.lastHash).toEqual(lastHash);    
+      this.expect(block.hash).toEqual(hash);    
+      this.expect(block.data).toEqual(data);    
   });
 
   // Test for genesis functionality
@@ -40,7 +40,33 @@ describe('Block', () => {
       // Test 2 - checking data and making sure they're equal
       // Note: JS implements classes as the objects; even if not declared as one (static)
       it('returns the genesis data', () => {
-          expect(genesisBlock).toEqual(GENESIS_DATA);
+          this.expect(genesisBlock).toEqual(GENESIS_DATA);
       });
+  });
+
+
+  // Mining Test
+  describe('mineBlock()', () => {
+      const lastBlock = Block.genesis();
+      const data = 'mined data';
+      const minedBlock = Block.mineBlock({lastBlock, data});  
+
+    // Test 1 - check instance
+    it('returns a Block instance', () => {
+        this.expect(minedBlock instanceof Block).toBe(true);
+    });
+
+    // Test 2 - verify the lastHash of current block equals to hash of previous block
+    it('sets the `lasthash` to be the `hash` of the lastBlock', () => {
+        this.expect(mineBlock.lastHash).toEqual(lastBlock.hash);
+    });
+
+    it('sets the `data`', () => {
+        this.expect(minedBlock.data).toEqual(data);
+    });
+
+    it('sets a `timestamp`', () => {
+        this.expect(minedBlock.timestamp).not.toEqual(undefined);
+    });
   });
 });
