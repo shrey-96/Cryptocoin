@@ -23,8 +23,9 @@ class Block {
             data,
             hash: cryptoHash(timestamp, lastHash, data)
         });
-    }
 
+        // this sdfsd
+    }
 }
 
 // allows the class to be sharable with other files 
